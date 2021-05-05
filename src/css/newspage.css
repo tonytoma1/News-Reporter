@@ -1,0 +1,10 @@
+.box {
+    margin-top: 50px;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.side-box-image {
+    height: 100px;
+    width: 200px;
+}
