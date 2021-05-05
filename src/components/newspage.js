@@ -12,7 +12,7 @@ export class NewsPage extends React.Component {
 
         this.state = {
             topArticles: [],
-            sportNews: [],
+            sportsNews: [],
             businessNews: [],
             healthNews: [],
             technologyNews: [],
@@ -28,10 +28,10 @@ export class NewsPage extends React.Component {
         let businessUrl = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
         let healthUrl = "https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
         let technologyUrl = "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
-        let otherUrl = "https://newsapi.org/v2/top-headlines?country=us&category=general&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
+        
         
         Promise.all([axios.get(topArticlesUrl), axios.get(sportsUrl), axios.get(businessUrl), axios.get(healthUrl),
-                    axios.get(technologyUrl), axios.get(otherUrl)])
+                    axios.get(technologyUrl)])
                     .then((response) => {
                         this.setState({
                             topArticles: response[0].data.articles,
@@ -39,7 +39,7 @@ export class NewsPage extends React.Component {
                             businessNews: response[2].data.articles,
                             healthNews: response[3].data.articles,
                             technologyNews: response[4].data.articles,
-                            otherNews: response[5].data.articles
+                           
                         })
 
                         console.log(response);
@@ -65,11 +65,12 @@ export class NewsPage extends React.Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-7">
+                        <a href={this.state.topArticles[0].url}>
                             <h1>Breaking news this hour</h1>
                             <img className="img-fluid" src={this.state.topArticles[0].urlToImage}/>
                             <h2>{this.state.topArticles[0].title}</h2>
                             <p>{this.state.topArticles[0].description}</p>
-                        
+                        </a>
                     </div>
 
                     <div className="col-md-5">
@@ -77,18 +78,21 @@ export class NewsPage extends React.Component {
                                 {data.map((article, index) => {
                                 return(
                                     <div className="row">
-                                        <div className="col">
-                                            <img className="side-box-image" src={article.urlToImage}/>
-                                        </div>
+                                            <div className="col">
+                                                <a href={article.url}>
+                                                    <img className="side-box-image" src={article.urlToImage}/>
+                                                </a>
+                                            </div>
+                                            
+                                            <div className="col-8">
+                                                <a href={article.url}>
+                                                <ul>
+                                                    <li>{article.title}</li>
+                                                    <li>{article.description}</li>
+                                                </ul>
+                                                </a>
+                                            </div>
                                         
-                                        <div className="col-8">
-                                            <ul>
-                                                <li>{article.title}</li>
-                                                <li>{article.description}</li>
-                                                <li><a href={article.url}>Read more</a></li>
-                                            </ul>
-                                        </div>
-                                           
                                         
                                     </div>
                                 )
@@ -97,26 +101,90 @@ export class NewsPage extends React.Component {
                    
                     </div>
                 </div>
-
                 <div className="row">
-                    <h1>Latest in Business</h1>
+                    <div className="col">
+                        <h1>Latest in Business</h1>
+                    </div>
+                </div>
+
+                <div className="row horizontal-list">
+                    
+                        {this.state.businessNews.map((article, index) => {
+                            return(
+                            
+                                <div className="col-2">
+                                    <a href={article.url}>
+                                    <img src={article.urlToImage} height="200" width="200"/>
+                                    <h3>{article.title}</h3>
+                                    </a>
+                                </div>
+                            )
+                        })}
+                    
                 </div>
 
                 <div className="row">
                     <h1>Latest in Health</h1>
+                </div>
+                
+                <div className="row horizontal-list">
+                    
+                    {this.state.healthNews.map((article, index) => {
+                        return(
+                        
+                            <div className="col-2">
+                                <a href={article.url}>
+                                    <img src={article.urlToImage} height="200" width="200"/>
+                                    <h3>{article.title}</h3>
+                                </a>
+                            </div>
+                        
+                        )
+                    })}
+                
                 </div>
 
                 <div className="row">
                     <h1>Latest in Technology</h1>
                 </div>
 
+                <div className="row horizontal-list">
+                    
+                    {this.state.technologyNews.map((article, index) => {
+                        return(
+                        
+                            <div className="col-2">
+                                <a href={article.url}>
+                                    <img src={article.urlToImage} height="200" width="200"/>
+                                    <h3>{article.title}</h3>
+                                </a>
+                            </div>
+                        )
+                    })}
+                
+                </div>
+
                 <div className="row">
                    <h1>Latest in Sports</h1>
                 </div>
 
-                <div className="row">
-                    <h1>Other news</h1>
+                <div className="row horizontal-list">
+                    
+                    {this.state.sportsNews.map((article, index) => {
+                        return(
+                        
+                            <div className="col-2">
+                                <a href={article.url}>
+                                    <img src={article.urlToImage} height="200" width="200"/>
+                                    <h3>{article.title}</h3>
+                                </a>
+                            </div>
+                        )
+                    })}
+                
                 </div>
+
+                
                
             </div>
         )
