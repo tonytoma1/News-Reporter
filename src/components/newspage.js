@@ -3,7 +3,7 @@ import axios from "axios";
 import React from "react";
 
 import {Container, Col, Row} from 'react-bootstrap';
-
+import {Header} from './header';
 import "../css/newspage.css";
 
 export class NewsPage extends React.Component {
@@ -64,9 +64,11 @@ export class NewsPage extends React.Component {
         return(
             <div className="container-fluid">
                 <div className="row">
+                    <h1>Breaking news this hour</h1>
+                </div>
+                <div className="row">
                     <div className="col-md-7">
                         <a href={this.state.topArticles[0].url}>
-                            <h1>Breaking news this hour</h1>
                             <img className="img-fluid" src={this.state.topArticles[0].urlToImage}/>
                             <h2>{this.state.topArticles[0].title}</h2>
                             <p>{this.state.topArticles[0].description}</p>
@@ -80,7 +82,10 @@ export class NewsPage extends React.Component {
                                     <div className="row">
                                             <div className="col">
                                                 <a href={article.url}>
-                                                    <img className="side-box-image" src={article.urlToImage}/>
+                                                    {
+                                                        !article.urlToImage ? <img className="side-box-image" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage}/> 
+                                                    }
+                                                
                                                 </a>
                                             </div>
                                             
@@ -114,7 +119,9 @@ export class NewsPage extends React.Component {
                             
                                 <div className="col-2">
                                     <a href={article.url}>
-                                    <img src={article.urlToImage} height="200" width="200"/>
+                                    {
+                                        !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
+                                    }
                                     <h3>{article.title}</h3>
                                     </a>
                                 </div>
@@ -134,7 +141,9 @@ export class NewsPage extends React.Component {
                         
                             <div className="col-2">
                                 <a href={article.url}>
-                                    <img src={article.urlToImage} height="200" width="200"/>
+                                {
+                                    !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
+                                }
                                     <h3>{article.title}</h3>
                                 </a>
                             </div>
@@ -155,7 +164,9 @@ export class NewsPage extends React.Component {
                         
                             <div className="col-2">
                                 <a href={article.url}>
-                                    <img src={article.urlToImage} height="200" width="200"/>
+                                {
+                                    !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
+                                }
                                     <h3>{article.title}</h3>
                                 </a>
                             </div>
@@ -175,7 +186,9 @@ export class NewsPage extends React.Component {
                         
                             <div className="col-2">
                                 <a href={article.url}>
-                                    <img src={article.urlToImage} height="200" width="200"/>
+                                {
+                                    !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
+                                }
                                     <h3>{article.title}</h3>
                                 </a>
                             </div>

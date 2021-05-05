@@ -1,0 +1,9 @@
+.website-title, .logo {
+    display: inline-block;
+}
+
+.logo {
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
