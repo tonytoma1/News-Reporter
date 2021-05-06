@@ -23,12 +23,12 @@ export class NewsPage extends React.Component {
     }
 
     componentDidMount() {
-
-        let topArticlesUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&apiKey=24ee51bee0a9465bb304914e723b07a9";
-        let sportsUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=sports&apiKey=24ee51bee0a9465bb304914e723b07a9";
-        let businessUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=business&apiKey=24ee51bee0a9465bb304914e723b07a9";
-        let healthUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=health&apiKey=24ee51bee0a9465bb304914e723b07a9";
-        let technologyUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=technology&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+        let topArticlesUrl = proxyUrl + "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        let sportsUrl = proxyUrl + "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=sports&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        let businessUrl = proxyUrl + "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=business&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        let healthUrl = proxyUrl + "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=health&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        let technologyUrl = proxyUrl + "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=technology&apiKey=24ee51bee0a9465bb304914e723b07a9";
         
         
         Promise.all([axios.get(topArticlesUrl), axios.get(sportsUrl), axios.get(businessUrl), axios.get(healthUrl),
