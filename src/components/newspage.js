@@ -23,11 +23,12 @@ export class NewsPage extends React.Component {
     }
 
     componentDidMount() {
-        let topArticlesUrl = "https://newsapi.org/v2/top-headlines?country=us&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
-        let sportsUrl = "https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
-        let businessUrl = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
-        let healthUrl = "https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
-        let technologyUrl = "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=bcfd444953aa43e1ae608f15f17ec3e8";
+
+        let topArticlesUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        let sportsUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=sports&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        let businessUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=business&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        let healthUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=health&apiKey=24ee51bee0a9465bb304914e723b07a9";
+        let technologyUrl = "https://newsapi.org/v2/top-headlines?country="+this.props.code+"&category=technology&apiKey=24ee51bee0a9465bb304914e723b07a9";
         
         
         Promise.all([axios.get(topArticlesUrl), axios.get(sportsUrl), axios.get(businessUrl), axios.get(healthUrl),
@@ -62,144 +63,148 @@ export class NewsPage extends React.Component {
         let data = this.state.topArticles.slice(1, this.state.topArticles.length);
 
         return(
-            <div className="container-fluid">
-                <div className="row">
-                    <h1>Breaking news this hour</h1>
-                </div>
-                <div className="row">
-                    <div className="col-md-7">
-                        <a href={this.state.topArticles[0].url}>
-                            <img className="img-fluid" src={this.state.topArticles[0].urlToImage}/>
-                            <h2>{this.state.topArticles[0].title}</h2>
-                            <p>{this.state.topArticles[0].description}</p>
-                        </a>
-                    </div>
+            <div>
+                <Header code={this.props.code}/>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <h1>Breaking news this hour</h1>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-7">
+                                <a href={this.state.topArticles[0].url}>
+                                    <img className="img-fluid" src={this.state.topArticles[0].urlToImage}/>
+                                    <h2>{this.state.topArticles[0].title}</h2>
+                                    <p>{this.state.topArticles[0].description}</p>
+                                </a>
+                            </div>
 
-                    <div className="col-md-5">
-                        <div className="box">
-                                {data.map((article, index) => {
-                                return(
-                                    <div className="row">
-                                            <div className="col">
-                                                <a href={article.url}>
-                                                    {
-                                                        !article.urlToImage ? <img className="side-box-image" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage}/> 
-                                                    }
+                            <div className="col-md-5">
+                                <div className="box">
+                                        {data.map((article, index) => {
+                                        return(
+                                            <div className="row">
+                                                    <div className="col">
+                                                        <a href={article.url}>
+                                                            {
+                                                                !article.urlToImage ? <img className="side-box-image" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage}/> 
+                                                            }
+                                                        
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    <div className="col-8">
+                                                        <a href={article.url}>
+                                                        <ul>
+                                                            <li>{article.title}</li>
+                                                            <li>{article.description}</li>
+                                                        </ul>
+                                                        </a>
+                                                    </div>
                                                 
-                                                </a>
+                                                
                                             </div>
-                                            
-                                            <div className="col-8">
-                                                <a href={article.url}>
-                                                <ul>
-                                                    <li>{article.title}</li>
-                                                    <li>{article.description}</li>
-                                                </ul>
-                                                </a>
-                                            </div>
-                                        
-                                        
+                                        )
+                                    })}
+                                </div>
+                        
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <h1>Latest in Business</h1>
+                            </div>
+                        </div>
+
+                        <div className="row horizontal-list">
+                            
+                                {this.state.businessNews.map((article, index) => {
+                                    return(
+                                    
+                                        <div className="col-2">
+                                            <a href={article.url}>
+                                            {
+                                                !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
+                                            }
+                                            <h3>{article.title}</h3>
+                                            </a>
+                                        </div>
+                                    )
+                                })}
+                            
+                        </div>
+
+                        <div className="row">
+                            <h1>Latest in Health</h1>
+                        </div>
+                        
+                        <div className="row horizontal-list">
+                            
+                            {this.state.healthNews.map((article, index) => {
+                                return(
+                                
+                                    <div className="col-2">
+                                        <a href={article.url}>
+                                        {
+                                            !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
+                                        }
+                                            <h3>{article.title}</h3>
+                                        </a>
+                                    </div>
+                                
+                                )
+                            })}
+                        
+                        </div>
+
+                        <div className="row">
+                            <h1>Latest in Technology</h1>
+                        </div>
+
+                        <div className="row horizontal-list">
+                            
+                            {this.state.technologyNews.map((article, index) => {
+                                return(
+                                
+                                    <div className="col-2">
+                                        <a href={article.url}>
+                                        {
+                                            !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
+                                        }
+                                            <h3>{article.title}</h3>
+                                        </a>
                                     </div>
                                 )
                             })}
+                        
                         </div>
-                   
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <h1>Latest in Business</h1>
-                    </div>
-                </div>
 
-                <div className="row horizontal-list">
-                    
-                        {this.state.businessNews.map((article, index) => {
-                            return(
+                        <div className="row">
+                        <h1>Latest in Sports</h1>
+                        </div>
+
+                        <div className="row horizontal-list">
                             
-                                <div className="col-2">
-                                    <a href={article.url}>
-                                    {
-                                        !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
-                                    }
-                                    <h3>{article.title}</h3>
-                                    </a>
-                                </div>
-                            )
-                        })}
-                    
-                </div>
-
-                <div className="row">
-                    <h1>Latest in Health</h1>
-                </div>
-                
-                <div className="row horizontal-list">
-                    
-                    {this.state.healthNews.map((article, index) => {
-                        return(
+                            {this.state.sportsNews.map((article, index) => {
+                                return(
+                                
+                                    <div className="col-2">
+                                        <a href={article.url}>
+                                        {
+                                            !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
+                                        }
+                                            <h3>{article.title}</h3>
+                                        </a>
+                                    </div>
+                                )
+                            })}
                         
-                            <div className="col-2">
-                                <a href={article.url}>
-                                {
-                                    !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
-                                }
-                                    <h3>{article.title}</h3>
-                                </a>
-                            </div>
+                        </div>
+
                         
-                        )
-                    })}
-                
-                </div>
-
-                <div className="row">
-                    <h1>Latest in Technology</h1>
-                </div>
-
-                <div className="row horizontal-list">
                     
-                    {this.state.technologyNews.map((article, index) => {
-                        return(
-                        
-                            <div className="col-2">
-                                <a href={article.url}>
-                                {
-                                    !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
-                                }
-                                    <h3>{article.title}</h3>
-                                </a>
-                            </div>
-                        )
-                    })}
-                
-                </div>
-
-                <div className="row">
-                   <h1>Latest in Sports</h1>
-                </div>
-
-                <div className="row horizontal-list">
-                    
-                    {this.state.sportsNews.map((article, index) => {
-                        return(
-                        
-                            <div className="col-2">
-                                <a href={article.url}>
-                                {
-                                    !article.urlToImage ? <img className="side-box-image" height="200" width="200" src="/image-not-found.jpg"/> : <img className="side-box-image" src={article.urlToImage} height="200" width="200"/> 
-                                }
-                                    <h3>{article.title}</h3>
-                                </a>
-                            </div>
-                        )
-                    })}
-                
-                </div>
-
-                
-               
+                    </div>
             </div>
+            
         )
     }
 }
